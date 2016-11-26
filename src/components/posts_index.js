@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchPost } from '../actions/index';
+import { fetchPosts } from '../actions/index';
 import { Link } from 'react-router';
 
 class PostsIndex extends Component {
 
   componentWillMount() {
-    this.props.fetchPost();
+    this.props.fetchPosts();
   }
   renderPosts(){
     return this.props.posts.map((post) => {
       return(
-        <li key={post.id}><span>{post.title}</span></li>
+        <li key={post.id}>
+
+          <Link to={"posts/" + post.id}>{post.title}</Link>
+        </li>
       )
     })
   }
@@ -35,4 +38,4 @@ function mapStateToProps(state){
   return {posts: state.posts.all};
 }
 
-export default  connect(mapStateToProps, { fetchPost })(PostsIndex);
+export default  connect(mapStateToProps, { fetchPosts })(PostsIndex);
